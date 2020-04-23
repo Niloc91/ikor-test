@@ -1,0 +1,8 @@
+---
+
+- hosts: nexus
+  remote_user: root
+
+  roles:
+    - common
+    - nexus

@@ -1,0 +1,8 @@
+---
+
+- hosts: jenkins-slaves
+  remote_user: root
+
+  roles:
+    - common
+    - jenkins-slaves

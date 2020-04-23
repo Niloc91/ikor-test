@@ -1,0 +1,8 @@
+---
+
+- hosts: grafana
+  remote_user: root
+
+  roles:
+    - common
+    - grafana

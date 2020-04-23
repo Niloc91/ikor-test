@@ -1,0 +1,8 @@
+---
+
+- hosts: sonar
+  remote_user: root
+
+  roles:
+    - common
+    - sonar

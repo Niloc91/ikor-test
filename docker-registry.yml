@@ -1,0 +1,8 @@
+---
+
+- hosts: docker-registry
+  remote_user: root
+
+  roles:
+    - common
+    - docker-registry

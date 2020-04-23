@@ -1,0 +1,8 @@
+---
+
+- hosts: graylog
+  remote_user: root
+
+  roles:
+    - common
+    - graylog
