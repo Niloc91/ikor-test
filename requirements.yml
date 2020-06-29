@@ -1,0 +1,5 @@
+- name: geerlingguy.docker
+- name: cloudalchemy.node-exporter
+- name: geerlingguy.pip
+- name: mdklatt.python3
+- name: entercloudsuite.prometheus-exporter

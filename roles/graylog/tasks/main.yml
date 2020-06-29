@@ -1,0 +1,16 @@
+---
+# tasks file for graylog
+- name: docker-compose Datei kopieren
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/app/docker-compose.yaml
+    owner: root
+    group: root
+    mode: '0744'
+- name: Create and start services
+  docker_compose:
+    project_src: /opt/app
+  register: output
+
+- debug:
+    var: output

@@ -2,7 +2,7 @@
 
 - hosts: graylog
   remote_user: root
-
   roles:
-    - common
+    - name: common
+      floating_ip:  "116.202.179.187"
     - graylog

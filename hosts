@@ -1,0 +1,5 @@
+[local]
+localhost
+
+[monitoring]
+graylog ansible_host=116.203.199.19 ansible_user=root

@@ -1,0 +1,10 @@
+---
+# vars file for common
+ansible_python_interpreter: /usr/bin/python3
+docker_compose_version: "1.9.0"
+pip_executable: pip3
+pip_install_packages:
+  - name: setuptools
+  - name: docker
+  - name: awscli
+  - name: docker-compose

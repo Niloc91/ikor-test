@@ -1,0 +1,15 @@
+---
+# tasks file for common
+- name: Ordner erstellen
+  file:
+    path: /opt/app
+    state: directory
+    mode: "0744"
+- name: Network-Config Datei kopieren
+  template:
+    src: templates/network.j2
+    dest: /etc/network/interfaces.d/60-my-floating-ip.cfg
+- name: Network-Service neustarten
+  service:
+    name: networking
+    state: restarted
