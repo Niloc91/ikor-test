@@ -2,7 +2,9 @@
 
 - hosts: graylog
   remote_user: root
+  vars:
+    json_terraform_output: "{{ lookup('file', 'terraform/output/outputs.json') }}"
   roles:
     - name: common
-      floating_ip:  "116.202.179.187"
+      floating_ip: "{{ json_terraform_output.floating_ip_address.value }}"
     - graylog

@@ -1,0 +1,12 @@
+{
+  "floating_ip_address": {
+    "sensitive": false,
+    "type": "string",
+    "value": "116.202.179.2"
+  },
+  "server_ip_address": {
+    "sensitive": false,
+    "type": "string",
+    "value": "116.203.199.19"
+  }
+}
