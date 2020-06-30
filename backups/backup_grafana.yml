@@ -1,0 +1,19 @@
+- hosts: grafana
+  remote_user: root
+  vars:
+    volume_name: grafana_data
+    backup_path: /opt/app/backup
+  tasks:
+  - name: backup
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: tar -cjf /backup/backup.tar.bz2 -C /volume ./
+      volumes:
+        - "{{ volume_name }}:/volume"
+        - "{{ backup_path }}:/backup"
+      #docker run --rm -v {{volume_name}}:/volume -v {{backup_path}}:/backup alpine tar -cjf /backup/backup.tar.bz2 -C /volume ./
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/backup.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"

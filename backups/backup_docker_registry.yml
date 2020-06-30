@@ -1,0 +1,13 @@
+- hosts: docker-registry
+  remote_user: root
+  vars:
+    backup_path: /opt/app/backup
+  tasks:
+  - name: backup
+    archive:
+      path: /opt/docker-volume/data
+      dest: "{{backup_path}}/backup.tar.bz2"
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/backup.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"

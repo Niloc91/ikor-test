@@ -3,3 +3,10 @@
 
 [monitoring]
 graylog ansible_host=116.203.199.19 ansible_user=root
+grafana ansible_host=116.202.179.186 ansible_user=root
+
+[registries]
+docker-registry ansible_host=116.203.66.4 ansible_user=root
+
+[security]
+keycloak ansible_host=94.130.151.171 ansible_user=root

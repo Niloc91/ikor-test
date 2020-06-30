@@ -1,12 +1,30 @@
 {
-  "floating_ip_address": {
+  "graylog_ip": {
     "sensitive": false,
-    "type": "string",
-    "value": "116.202.179.2"
+    "type": [
+      "object",
+      {
+        "floating": "string",
+        "server": "string"
+      }
+    ],
+    "value": {
+      "floating": "116.202.179.187",
+      "server": "116.203.199.19"
+    }
   },
-  "server_ip_address": {
+  "test_ip": {
     "sensitive": false,
-    "type": "string",
-    "value": "116.203.199.19"
+    "type": [
+      "object",
+      {
+        "floating": "string",
+        "server": "string"
+      }
+    ],
+    "value": {
+      "floating": "116.202.179.2",
+      "server": "159.69.145.52"
+    }
   }
 }

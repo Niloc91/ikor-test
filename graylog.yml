@@ -6,5 +6,5 @@
     json_terraform_output: "{{ lookup('file', 'terraform/output/outputs.json') }}"
   roles:
     - name: common
-      floating_ip: "{{ json_terraform_output.floating_ip_address.value }}"
+      floating_ip: "{{ json_terraform_output.graylog_ip.value.floating }}"
     - graylog
