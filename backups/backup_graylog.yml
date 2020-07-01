@@ -28,7 +28,7 @@
       volumes:
         - "{{ volume_name2 }}:/volume"
         - "{{ backup_path }}:/backup"
-      #docker run --rm -v {{volume_name}}:/volume -v {{backup_path}}:/backup alpine tar -cjf /backup/backup.tar.bz2 -C /volume ./
+      #docker-compose exec -T postgres pg_dump -c -b -Fc -U keycloak -d keycloak > /opt/backups/dump.sqlc
   - name: backup zu Lokal kopieren
     fetch:
       src: "{{ backup_path }}/backup_pg_data.tar.bz2"

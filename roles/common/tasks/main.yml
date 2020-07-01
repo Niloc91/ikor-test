@@ -29,4 +29,7 @@
     src: "{{volume_location}}"
     fstype: ext4
     opts: discard,defaults
-    state: unmounted
+    state: mounted
+  register: out
+- debug:
+    msg: "{{ out }}"

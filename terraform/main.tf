@@ -21,11 +21,3 @@ module "test_server" {
   ssh_keys          = var.ssh_keys
 }
 
-module "neu_server" {
-  dns               = "neu.ikor.de"
-  names             = "neu"
-  server_type       = "cx11"
-  setup_private_key = var.setup_private_key
-  source            = "./server_template"
-  ssh_keys          = var.ssh_keys
-}
