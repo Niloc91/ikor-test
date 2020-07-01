@@ -21,3 +21,8 @@ terraform init
 ```
 terraform apply && terraform output -json > output/outputs.json
 ```
+
+backup
+```
+ansible-playbook -i ../hosts -v backup_graylog.yml 
+```

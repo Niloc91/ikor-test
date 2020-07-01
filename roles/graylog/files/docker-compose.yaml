@@ -82,6 +82,5 @@ networks:
 
 volumes:
   graylog_journal:
-  pg_data:
   mongo_data:
   es_data:
