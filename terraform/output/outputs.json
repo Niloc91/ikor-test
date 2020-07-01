@@ -10,9 +10,9 @@
       }
     ],
     "value": {
-      "floating": "116.202.179.187",
-      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6076619",
-      "server": "116.203.199.19"
+      "floating": "116.202.179.2",
+      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6077099",
+      "server": "159.69.145.52"
     }
   },
   "test_ip": {
@@ -26,9 +26,9 @@
       }
     ],
     "value": {
-      "floating": "116.202.179.2",
-      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6076620",
-      "server": "159.69.145.52"
+      "floating": "116.202.179.187",
+      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6077098",
+      "server": "116.203.199.19"
     }
   }
 }

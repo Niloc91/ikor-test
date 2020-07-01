@@ -18,6 +18,7 @@
   service:
     name: networking
     state: restarted
+
 - name: ext4 fs erstellen
   filesystem:
     fstype: ext4
@@ -28,4 +29,4 @@
     src: "{{volume_location}}"
     fstype: ext4
     opts: discard,defaults
-    state: present
+    state: unmounted

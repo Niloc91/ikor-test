@@ -22,7 +22,7 @@ resource "hcloud_server" "web" {
   location    = "nbg1"
   name        = "${var.names}-server"
   server_type = var.server_type
-  ssh_keys = var.ssh_keys
+  ssh_keys    = var.ssh_keys
 }
 
 resource "hcloud_volume" "default" {

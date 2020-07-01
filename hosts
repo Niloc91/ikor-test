@@ -5,7 +5,7 @@
 grafana ansible_host=116.202.179.186 ansible_user=root
 
 [logging]
-graylog ansible_host=116.203.199.19 ansible_user=root
+graylog ansible_host=159.69.145.52 ansible_user=root
 
 [registries]
 docker-registry ansible_host=116.203.66.4 ansible_user=root
