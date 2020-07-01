@@ -29,6 +29,7 @@ resource "hcloud_volume" "default" {
   location = "nbg1"
   name     = "${var.names}-volume"
   size     = 20
+  format   = "ext4"
 }
 
 resource "hcloud_volume_attachment" "main" {

@@ -8,3 +8,4 @@ pip_install_packages:
   - name: docker
   - name: awscli
   - name: docker-compose
+  - name: hcloud

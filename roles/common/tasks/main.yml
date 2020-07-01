@@ -1,8 +1,13 @@
 ---
 # tasks file for common
-- name: Ordner erstellen
+- name: Ordner App erstellen
   file:
     path: /opt/app
+    state: directory
+    mode: "0744"
+- name: Ordner backup erstellen
+  file:
+    path: /opt/app/backup
     state: directory
     mode: "0744"
 - name: Network-Config Datei kopieren
@@ -13,3 +18,14 @@
   service:
     name: networking
     state: restarted
+- name: ext4 fs erstellen
+  filesystem:
+    fstype: ext4
+    dev: "{{volume_location}}"
+- name: Mount Volume
+  mount:
+    path: /opt/app/backup
+    src: "{{volume_location}}"
+    fstype: ext4
+    opts: discard,defaults
+    state: present

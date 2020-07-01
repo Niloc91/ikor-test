@@ -7,4 +7,5 @@
   roles:
     - name: common
       floating_ip: "{{ json_terraform_output.graylog_ip.value.floating }}"
+      volume_location: "{{ json_terraform_output.graylog_ip.value.linux_device }}"
     - graylog

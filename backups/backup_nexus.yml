@@ -1,8 +1,8 @@
-- hosts: grafana
+- hosts: nexus
   remote_user: root
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    volume_name: grafana_data
+    volume_name: nexus-storage
     backup_path: /opt/app/backup
   tasks:
   - name: backup

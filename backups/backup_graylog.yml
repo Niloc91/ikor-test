@@ -1,0 +1,48 @@
+- hosts: graylog
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    volume_name: graylog_journal
+    volume_name2: pg_data
+    volume_name3: mongo_data
+    backup_path: /opt/app/backup
+  tasks:
+  - name: backup_graylog
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: tar -cjf /backup/backup_journal.tar.bz2 -C /volume ./
+      volumes:
+        - "{{ volume_name }}:/volume"
+        - "{{ backup_path }}:/backup"
+      #docker run --rm -v {{volume_name}}:/volume -v {{backup_path}}:/backup alpine tar -cjf /backup/backup.tar.bz2 -C /volume ./
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/backup_journal.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"
+  - name: backup_pg_data
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: tar -cjf /backup/backup_pg_data.tar.bz2 -C /volume ./
+      volumes:
+        - "{{ volume_name2 }}:/volume"
+        - "{{ backup_path }}:/backup"
+      #docker run --rm -v {{volume_name}}:/volume -v {{backup_path}}:/backup alpine tar -cjf /backup/backup.tar.bz2 -C /volume ./
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/backup_pg_data.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"
+  - name: backup_mongo
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: tar -cjf /backup/backup_mongo.tar.bz2 -C /volume ./
+      volumes:
+        - "{{ volume_name3 }}:/volume"
+        - "{{ backup_path }}:/backup"
+      #docker run --rm -v {{volume_name}}:/volume -v {{backup_path}}:/backup alpine tar -cjf /backup/backup.tar.bz2 -C /volume ./
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/backup_mongo.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"
