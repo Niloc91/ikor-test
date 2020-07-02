@@ -39,6 +39,14 @@
   register: out
 - debug:
     msg: "{{ out }}"
+
+- name: docker daemon.json Datei kopieren
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0744'
 - name: Docker anmelden
   docker_login:
     registry: docker.ikor.de
@@ -48,8 +56,6 @@
   register: dockermsg
 - debug:
     msg: "{{ dockermsg }}"
-
-
 - name: cadvisor docker-compose Datei kopieren
   copy:
     src: docker-compose.yml
