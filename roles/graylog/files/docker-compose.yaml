@@ -1,7 +1,7 @@
 version: '2'
 services:
   mongodb:
-    image: mongo:3
+    image: mongo:4.2.8
     volumes:
       - mongo_data:/data/db
     networks:
@@ -78,7 +78,6 @@ services:
 
 networks:
   webproxy:
-  db:
 
 volumes:
   graylog_journal:

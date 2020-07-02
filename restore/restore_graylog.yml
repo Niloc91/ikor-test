@@ -1,0 +1,19 @@
+# https://blog.nicco.io/2019/08/15/backup-mongodb-inside-of-docker-the-right-way/
+#https://medium.com/@loomchild/backup-restore-docker-named-volumes-350397b8e362
+- hosts: graylog
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    volume_name: graylog_journal
+    backup_path: /opt/app/backup
+  tasks:
+  - name: restore_mongo
+    shell: "cd /opt/app/ && docker-compose exec -T mongodb mongorestore --archive --gzip < {{backup_path}}/dump.gz"
+  - name: restore_graylog_volume
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -C /volume/ -xjf {{backup_path}}/{{volume_name}}.tar.bz2"
+      volumes:
+        - "{{ volume_name }}:/volume"
+        - "{{ backup_path }}:/backup"

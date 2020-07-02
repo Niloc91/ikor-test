@@ -12,6 +12,11 @@ resource "hcloud_server" "web" {
   ssh_keys    = var.ssh_keys
 }
 
+resource "hcloud_server_network" "default" {
+  server_id  = hcloud_server.web.id
+  network_id = data.hcloud_network.master.id
+}
+
 resource "hcloud_volume" "default" {
   location = "nbg1"
   name     = "${var.names}-volume"

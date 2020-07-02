@@ -6,6 +6,9 @@ variable "names" {
 variable "floating_ip" {
 }
 
+variable "network" {
+}
+
 variable "setup_private_key" {
 }
 

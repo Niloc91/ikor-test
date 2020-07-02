@@ -6,3 +6,5 @@ setup:
 	ansible-playbook -i hosts -v ${CONFIG}.yml
 backup:
 	make -C backups backup
+restore:
+	make -C restore restore
