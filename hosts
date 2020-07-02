@@ -5,7 +5,7 @@
 grafana ansible_host=116.202.179.186 ansible_user=root
 
 [logging]
-graylog ansible_host=159.69.145.52 ansible_user=root
+graylog ansible_host=116.203.199.19 ansible_user=root
 
 [registries]
 docker-registry ansible_host=116.203.66.4 ansible_user=root
@@ -17,3 +17,6 @@ keycloak ansible_host=94.130.151.171 ansible_user=root
 
 [build]
 jenkins ansible_host=116.203.55.98 ansible_user=root
+
+[quality]
+sonar ansible_host=78.47.228.104 ansible_user=root

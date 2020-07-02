@@ -2,9 +2,10 @@ provider "hcloud" {
   token = var.hcloud_token
 }
 
+//logs.ikor.de
 module "graylog_server" {
-  dns               = "logs.ikor.de"
   names             = "graylog"
+  floating_ip       = "116.202.181.110"
   server_type       = "cx11"
   setup_private_key = var.setup_private_key
   source            = "./server_template"
@@ -12,12 +13,13 @@ module "graylog_server" {
 }
 
 
-module "test_server" {
-  dns               = "test.ikor.de"
-  names             = "test"
-  server_type       = "cx11"
-  setup_private_key = var.setup_private_key
-  source            = "./server_template"
-  ssh_keys          = var.ssh_keys
-}
+//module "test_server" {
+//  dns               = "test.ikor.de"
+//  names             = "test"
+//  server_type       = "cx11"
+//  floating_ip       = //ausfühlen
+//  setup_private_key = var.setup_private_key
+//  source            = "./server_template"
+//  ssh_keys          = var.ssh_keys
+//}
 

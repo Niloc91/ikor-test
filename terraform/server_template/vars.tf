@@ -3,7 +3,7 @@
 variable "names" {
 }
 
-variable "dns" {
+variable "floating_ip" {
 }
 
 variable "setup_private_key" {

@@ -1,19 +1,6 @@
-
-resource "hcloud_floating_ip" "master" {
-  home_location = "nbg1"
-  name          = var.dns
-  type          = "ipv4"
-}
-
 resource "hcloud_floating_ip_assignment" "main" {
-  floating_ip_id = hcloud_floating_ip.master.id
+  floating_ip_id = data.hcloud_floating_ip.master.id
   server_id      = hcloud_server.web.id
-}
-
-resource "hcloud_rdns" "master" {
-  dns_ptr        = var.dns
-  floating_ip_id = hcloud_floating_ip_assignment.main.id
-  ip_address     = hcloud_floating_ip.master.ip_address
 }
 
 resource "hcloud_server" "web" {

@@ -33,3 +33,9 @@
   register: out
 - debug:
     msg: "{{ out }}"
+#- name: Docker anmelden
+#  docker_login:
+#    registry: docker.ikor.de
+#    username: "{{docker_user}}"
+#    password: "{{docker_pass}}"
+#    reauthorize: yes

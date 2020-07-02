@@ -1,0 +1,13 @@
+# https://community.grafana.com/t/backup-restore-grafana-server/121
+- hosts: keycloak
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    backup_path: /opt/app/backup
+  tasks:
+  - name: backup_db
+    shell: "cd /opt/keycloak && docker-compose exec -T postgres pg_dump -c -b -Fc -U keycloak -d keycloak > {{backup_path}}/dump.sqlc"
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/dump.sqlc"
+      dest: "host_backups/{{ inventory_hostname }}"

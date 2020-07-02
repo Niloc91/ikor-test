@@ -1,0 +1,54 @@
+- hosts: sonar
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    backup_path: /opt/app/backup
+    volume_name: sonar_data
+    conf_name: sonar_conf
+    exten_name: sonar_extensions
+  tasks:
+  - name: backup_db
+    shell: "cd /opt/sonar && docker-compose exec -T postgres pg_dump -c -b -Fc -U sonar -d sonar > {{backup_path}}/dump.sqlc"
+    register: out
+  - debug:
+      msg: "{{ out.stderr }}"
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/dump.sqlc"
+      dest: "host_backups/{{ inventory_hostname }}"
+  - name: backup_sonar_volume
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: "tar -cjf /backup/{{volume_name}}.tar.bz2 -C /volume ./"
+      volumes:
+        - "{{ volume_name }}:/volume"
+        - "{{ backup_path }}:/backup"
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/{{volume_name}}.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"
+  - name: backup_sonar_conf
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: "tar -cjf /backup/{{conf_name}}.tar.bz2 -C /volume ./"
+      volumes:
+        - "{{ volume_name }}:/volume"
+        - "{{ backup_path }}:/backup"
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/{{conf_name}}.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"
+  - name: backup_sonar_exten
+    docker_container:
+      name: backup_container
+      image: alpine
+      command: "tar -cjf /backup/{{exten_name}}.tar.bz2 -C /volume ./"
+      volumes:
+        - "{{ volume_name }}:/volume"
+        - "{{ backup_path }}:/backup"
+  - name: backup zu Lokal kopieren
+    fetch:
+      src: "{{ backup_path }}/{{exten_name}}.tar.bz2"
+      dest: "host_backups/{{ inventory_hostname }}"

@@ -1,4 +1,4 @@
 unprovision:
 	terraform destroy
 provision:
-	terraform apply && terraform output -json > output/outputs.json
+	terraform init && terraform apply && terraform output -json > output/outputs.json
