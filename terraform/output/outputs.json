@@ -11,7 +11,7 @@
     ],
     "value": {
       "floating": "116.202.181.110",
-      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6094953",
+      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6096164",
       "server": "116.203.199.19"
     }
   }

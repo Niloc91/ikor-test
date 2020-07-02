@@ -29,14 +29,15 @@ services:
     volumes:
       - graylog_journal:/usr/share/graylog/data/journal
     environment:
-      - VIRTUAL_HOST=logs.ikor.de
-      - VIRTUAL_PORT=9000
-      - LETSENCRYPT_HOST=logs.ikor.de
-      - LETSENCRYPT_EMAIL= support@ikor.de
-      - GRAYLOG_HTTP_EXTERNAL_URI=https://logs.ikor.de/
-      - GRAYLOG_MONGODB_URI=mongodb://mongodb:27017/graylog
-      - GRAYLOG_ROOT_PASSWORD_SHA2=5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8 #${ADMIN_PW_SHA2}
-      - GRAYLOG_PASSWORD_SECRET=password123456789 #${GRAYLOG_PW_SECRET}
+      VIRTUAL_HOST: logs.ikor.de
+      VIRTUAL_PORT: 9000
+      LETSENCRYPT_HOST: logs.ikor.de
+      LETSENCRYPT_EMAIL:  support@ikor.de
+      LETSENCRYPT_TEST: "true"
+      GRAYLOG_HTTP_EXTERNAL_URI: https://logs.ikor.de/
+      GRAYLOG_MONGODB_URI: mongodb://mongodb:27017/graylog
+      GRAYLOG_ROOT_PASSWORD_SHA2: 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8 #${ADMIN_PW_SHA2}
+      GRAYLOG_PASSWORD_SECRET: password123456789 #${GRAYLOG_PW_SECRET}
     depends_on:
       - mongodb
       - elasticsearch

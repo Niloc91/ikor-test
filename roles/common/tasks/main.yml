@@ -5,11 +5,6 @@
     path: /opt/app
     state: directory
     mode: "0744"
-- name: Ordner backup erstellen
-  file:
-    path: /opt/app/backup
-    state: directory
-    mode: "0744"
 - name: Ordner cadvisor erstellen
   file:
     path: /opt/cadvisor
@@ -31,7 +26,7 @@
     dev: "{{volume_location}}"
 - name: Mount Volume
   mount:
-    path: /opt/app/backup
+    path: /opt/app
     src: "{{volume_location}}"
     fstype: ext4
     opts: discard,defaults
@@ -39,6 +34,11 @@
   register: out
 - debug:
     msg: "{{ out }}"
+- name: Ordner backup erstellen
+  file:
+    path: /opt/app/backup
+    state: directory
+    mode: "0744"
 
 - name: docker daemon.json Datei kopieren
   copy:
