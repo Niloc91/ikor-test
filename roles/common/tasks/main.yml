@@ -10,6 +10,12 @@
     path: /opt/app/backup
     state: directory
     mode: "0744"
+- name: Ordner cadvisor erstellen
+  file:
+    path: /opt/cadvisor
+    state: directory
+    mode: "0744"
+
 - name: Network-Config Datei kopieren
   template:
     src: templates/network.j2
@@ -33,9 +39,65 @@
   register: out
 - debug:
     msg: "{{ out }}"
-#- name: Docker anmelden
-#  docker_login:
-#    registry: docker.ikor.de
-#    username: "{{docker_user}}"
-#    password: "{{docker_pass}}"
-#    reauthorize: yes
+- name: Docker anmelden
+  docker_login:
+    registry: docker.ikor.de
+    username: "{{docker_user}}"
+    password: "{{docker_pass}}"
+    reauthorize: yes
+  register: dockermsg
+- debug:
+    msg: "{{ dockermsg }}"
+
+
+- name: cadvisor docker-compose Datei kopieren
+  copy:
+    src: docker-compose.yml
+    dest: /opt/cadvisor/docker-compose.yaml
+    owner: root
+    group: root
+    mode: '0744'
+- name: cadvisor start
+  docker_compose:
+    project_src: /opt/cadvisor
+  register: output
+- debug:
+    var: output
+- name: prometheus installieren
+  apt:
+    name: prometheus
+    state: present
+- name: prometheus.yml Datei kopieren
+  copy:
+    src: prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+    owner: root
+    group: root
+    mode: '0744'
+- name: prometheus start
+  service:
+    name: prometheus
+    state: started
+
+
+- name: ufw 80
+  ufw:
+    rule: allow
+    port: '80'
+- name: ufw 443
+  ufw:
+    rule: allow
+    port: '443'
+- name: ufw 22
+  ufw:
+    rule: allow
+    port: '22'
+- name: ufw 10.0.0.2
+  ufw:
+    rule: allow
+    port: '9090'
+    src: 10.0.0.2
+    to_port: 9090
+- name: enable UFW
+  ufw:
+    state: enabled
