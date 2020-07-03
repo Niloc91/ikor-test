@@ -5,12 +5,12 @@ This repository contains our ansible scripts and setup that is used for the prov
 ## Example
 Graylog
 ```
-ansible-playbook -i hosts -v graylog.yml
+CONFIG=graylog make setup
 ```
 
 Install requirements
 ```
-ansible-galaxy install -r requirements.yml
+make ansible-install
 ```
 
 terraform 
@@ -19,10 +19,10 @@ terraform init
 ```
 
 ```
-terraform apply && terraform output -json > output/outputs.json
+make provision
 ```
 
 backup
 ```
-ansible-playbook -i ../hosts -v backup_graylog.yml 
+SERVER=graylog make backup
 ```

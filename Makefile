@@ -12,3 +12,5 @@ encrypt:
 	ansible-vault encrypt roles/common/vars/secrets.yml --output roles/common/vars/secrets.yml.encrypt --vault-password-file secretskey.txt
 decrypt:
 	ansible-vault decrypt roles/common/vars/secrets.yml.encrypt --output roles/common/vars/secrets.yml --vault-password-file secretskey.txt
+ansible-install:
+	ansible-galaxy install -r requirements.yml
