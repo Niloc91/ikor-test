@@ -13,3 +13,7 @@
 .terraform
 
 host_backups
+
+roles/common/vars/secrets.yml
+
+secretskey.txt
