@@ -1,0 +1,30 @@
+- name: Ordner App erstellen
+  file:
+    path: /opt/app
+    state: directory
+    mode: "0744"
+- name: Ordner cadvisor erstellen
+  file:
+    path: /opt/cadvisor
+    state: directory
+    mode: "0744"
+
+- name: ext4 fs erstellen
+  filesystem:
+    fstype: ext4
+    dev: "{{volume_location}}"
+- name: Mount Volume
+  mount:
+    path: /opt/app
+    src: "{{volume_location}}"
+    fstype: ext4
+    opts: discard,defaults
+    state: mounted
+  register: out
+- debug:
+    msg: "{{ out }}"
+- name: Ordner backup erstellen
+  file:
+    path: /opt/app/backup
+    state: directory
+    mode: "0744"

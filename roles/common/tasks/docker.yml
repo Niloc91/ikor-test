@@ -1,0 +1,16 @@
+- name: docker daemon.json Datei kopieren
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0744'
+- name: Docker anmelden
+  docker_login:
+    registry: docker.ikor.de
+    username: "{{docker_user}}"
+    password: "{{docker_pass}}"
+    reauthorize: yes
+  register: dockermsg
+- debug:
+    msg: "{{ dockermsg }}"

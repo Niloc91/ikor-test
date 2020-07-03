@@ -1,11 +1,11 @@
 ---
-
 - hosts: graylog
   remote_user: root
   vars:
     docker_user: "{{ lookup('env','DOCKER_USER') }}"
     docker_pass:  "{{lookup('env','DOCKER_PASS')}}"
     json_terraform_output: "{{ lookup('file', 'terraform/output/outputs.json') }}"
+    graylog_server_ip: "{{ json_terraform_output.graylog_ip.value.server }}"
   roles:
     - name: common
       floating_ip: "{{ json_terraform_output.graylog_ip.value.floating }}"

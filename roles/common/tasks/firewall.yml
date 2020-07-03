@@ -1,0 +1,21 @@
+- name: ufw 80
+  ufw:
+    rule: allow
+    port: '80'
+- name: ufw 443
+  ufw:
+    rule: allow
+    port: '443'
+- name: ufw 22
+  ufw:
+    rule: allow
+    port: '22'
+- name: ufw 10.0.0.2
+  ufw:
+    rule: allow
+    port: '9090'
+    src: 10.0.0.2
+    to_port: 9090
+- name: enable UFW
+  ufw:
+    state: enabled

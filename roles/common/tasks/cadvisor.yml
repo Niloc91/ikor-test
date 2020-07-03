@@ -1,0 +1,13 @@
+- name: cadvisor docker-compose Datei kopieren
+  copy:
+    src: docker-compose.yml
+    dest: /opt/cadvisor/docker-compose.yaml
+    owner: root
+    group: root
+    mode: '0744'
+- name: cadvisor start
+  docker_compose:
+    project_src: /opt/cadvisor
+  register: output
+- debug:
+    var: output

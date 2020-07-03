@@ -1,0 +1,16 @@
+
+- name: prometheus installieren
+  apt:
+    name: prometheus
+    state: present
+- name: prometheus.yml Datei kopieren
+  copy:
+    src: prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+    owner: root
+    group: root
+    mode: '0744'
+- name: prometheus start
+  service:
+    name: prometheus
+    state: started
