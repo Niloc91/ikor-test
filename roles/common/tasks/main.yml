@@ -1,5 +1,6 @@
 ---
 # tasks file for common
+- include_vars: secrets.yml
 - include_tasks: volume.yml
 - include_tasks: network.yml
 - include_tasks: docker.yml

@@ -1,6 +1,6 @@
 ---
 # vars file for common
-include_vars: secrets.yml
+
 ansible_python_interpreter: /usr/bin/python3
 docker_compose_version: "1.9.0"
 pip_executable: pip3

@@ -15,10 +15,6 @@ make ansible-install
 
 terraform 
 ```
-terraform init
-```
-
-```
 make provision
 ```
 
