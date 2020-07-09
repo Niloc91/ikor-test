@@ -2,8 +2,8 @@ provision:
 	make -C terraform provision
 unprovision:
 	make -C terraform unprovision
-setup:
-	ansible-playbook -i hosts.yml -v ${CONFIG}.yml
+setup:ansible-install encrypt
+	ansible-playbook -i hosts.yml -v ${SERVER}.yml
 backup:
 	make -C backups backup
 restore:

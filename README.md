@@ -1,24 +1,38 @@
-# ansible
+# Cloud as Config
 
-This repository contains our ansible scripts and setup that is used for the provisioning of all our servers.
+## Secrets
+man muss erst ein secretskey.txt File in dem Rootordener erstellen. Das muss mit dem secret ausgefüllt werden, damit 
+ansible die secrets entschlüsseln kann. 
 
-## Example
-Graylog
+
+## Server erstellen
+Um servers in Hetzer zu erstellen, verwenden wir terraform.
+
+Erst muss man einen neuen Server in main.tf hinzufügen.
+terraform/main.tf
+Man muss auf die "floating ip" beachten, um den Server zu verbinden.
+
+
+Danach muss ein output.tf hinzugefügt. Das output ist zu output.json gescrieben, damit ansible die Infos über die Resources in dem Cloud verwenden kann.  
+terraform/output.tf
+
+Am ende verwendet man diesen Befehl, um die Servers zu erstellen. 
 ```
-CONFIG=graylog make setup
+$ make provision
 ```
 
-Install requirements
+## Server konfigurieren Beispiel
+um graylog aufzusetzen
 ```
-make ansible-install
-```
-
-terraform 
-```
-make provision
+$ SERVER=graylog make setup
 ```
 
 backup
 ```
-SERVER=graylog make backup
+$ SERVER=graylog make backup
+```
+
+restore
+```
+$ SERVER=graylog make backup
 ```

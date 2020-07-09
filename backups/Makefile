@@ -1,2 +1,2 @@
 backup:
-	ansible-playbook -i ../hosts -v backup_${SERVER}.yml
+	ansible-playbook -i ../hosts.yml -v backup_${SERVER}.yml

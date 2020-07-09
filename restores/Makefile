@@ -1,2 +1,2 @@
 restore:
-	ansible-playbook -i ../hosts -v restore_${SERVER}.yml
+	ansible-playbook -i ../hosts.yml -v restore_${SERVER}.yml

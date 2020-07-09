@@ -6,6 +6,8 @@
     ansible_python_interpreter: /usr/bin/python3
     volume_name: graylog_journal
     backup_path: /opt/app/backup
+    json_terraform_output: "{{ lookup('file', '../terraform/output/outputs.json') }}"
+    graylog_server_ip: "{{ json_terraform_output.graylog_ip.value.server }}"
   tasks:
   - name: restore_mongo
     shell: "cd /opt/app/ && docker-compose exec -T mongodb mongorestore --archive --gzip < {{backup_path}}/dump.gz"
