@@ -19,10 +19,10 @@
   - name: backup zu Lokal kopieren
     fetch:
       src: "{{ backup_path }}/{{volume_name}}.tar.bz2"
-      dest: "host_backups/{{ inventory_hostname }}"
+      dest: "host_backups/"
   - name: backup_mongo
-    shell: "cd /opt/app/ && docker-compose exec -T mongodb mongodump --archive --gzip --db graylog > {{backup_path}}/dump.gz"
+    shell: "cd /opt/app/ && docker-compose exec -T mongodb mongodump --archive --gzip > {{backup_path}}/dump.gz"
   - name: backup zu Lokal kopieren
     fetch:
       src: "{{ backup_path }}/dump.gz"
-      dest: "host_backups/{{ inventory_hostname }}"
+      dest: "host_backups/"

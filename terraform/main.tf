@@ -7,7 +7,7 @@ module "graylog_server" {
   names             = "graylog"
   floating_ip       = "116.202.181.110"
   network           = "ikor-network"
-  server_type       = "cx11"
+  server_type       = "cpx31"
   setup_private_key = var.setup_private_key
   source            = "./server_template"
   ssh_keys          = var.ssh_keys

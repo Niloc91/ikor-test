@@ -9,6 +9,11 @@
     json_terraform_output: "{{ lookup('file', '../terraform/output/outputs.json') }}"
     graylog_server_ip: "{{ json_terraform_output.graylog_ip.value.server }}"
   tasks:
+  - name: Backup Datei kopieren
+    copy:
+      src: "../backups/host_backups/{{ inventory_hostname }}{{ backup_path }}/"
+      dest: "{{ backup_path }}"
+      follow: no
   - name: restore_mongo
     shell: "cd /opt/app/ && docker-compose exec -T mongodb mongorestore --archive --gzip < {{backup_path}}/dump.gz"
   - name: restore_graylog_volume

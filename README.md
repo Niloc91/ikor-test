@@ -36,3 +36,4 @@ restore
 ```
 $ SERVER=graylog make backup
 ```
+
