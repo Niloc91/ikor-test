@@ -12,5 +12,6 @@
     password: "{{docker_pass}}"
     reauthorize: yes
   register: dockermsg
+  when: docker_login
 - debug:
     msg: "{{ dockermsg }}"

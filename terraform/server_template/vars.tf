@@ -18,3 +18,6 @@ variable "server_type" {
 variable "ssh_keys" {
 }
 
+variable "volume_size" {
+}
+

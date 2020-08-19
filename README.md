@@ -1,5 +1,13 @@
 # Cloud as Config
 
+## Anforderung
+
+SSH-pass
+`
+$ brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+`
+
+
 ## Secrets
 man muss erst ein secretskey.txt File in dem Rootordener erstellen. Das muss mit dem secret ausgefüllt werden, damit 
 ansible die secrets entschlüsseln kann. 

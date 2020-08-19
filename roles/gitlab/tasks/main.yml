@@ -1,0 +1,15 @@
+---
+# tasks file for gitlab
+- name: docker-compose Datei kopieren
+  copy:
+    src: docker-compose.yml
+    dest: /opt/app/docker-compose.yml
+    owner: root
+    group: root
+    mode: '0744'
+- name: Create and start services
+  docker_compose:
+    project_src: /opt/app
+  register: output
+- debug:
+    var: output

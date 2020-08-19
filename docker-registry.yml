@@ -2,7 +2,10 @@
 
 - hosts: docker-registry
   remote_user: root
-
+  vars_files: terraform_output_vars.yml
   roles:
-    - common
+    - name: common
+      floating_ip: "{{ json_terraform_output.docker_registry_ip.value.floating }}"
+      volume_location: "{{ json_terraform_output.docker_registry_ip.value.linux_device }}"
+      docker_login: false
     - docker-registry

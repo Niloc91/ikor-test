@@ -3,6 +3,7 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
     backup_path: /opt/app/backup
+  vars_files: vars.yml
   tasks:
   - name: backup
     archive:
@@ -11,4 +12,4 @@
   - name: backup zu Lokal kopieren
     fetch:
       src: "{{ backup_path }}/backup.tar.bz2"
-      dest: "host_backups/{{ inventory_hostname }}"
+      dest: "host_backups/"

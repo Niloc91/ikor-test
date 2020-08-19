@@ -4,7 +4,7 @@
 #- import_playbook: docker-registry.yml
 #- import_playbook: gitlab.yml
 #- import_playbook: grafana.yml
-- import_playbook: graylog.yml
+#- import_playbook: graylog.yml
 #- import_playbook: jenkins-master.yml
 #- import_playbook: jenkins-slaves.yml
 #- import_playbook: keycloak.yml

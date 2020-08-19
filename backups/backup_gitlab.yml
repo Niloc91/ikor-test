@@ -1,0 +1,15 @@
+- hosts: gitlab
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    backup_path: /opt/app/backup
+  vars_files: vars.yml
+  tasks:
+    - name: backup
+      archive:
+        path: /opt/gitlab/gitlab
+        dest: "{{backup_path}}/backup.tar.bz2"
+    - name: backup zu Lokal kopieren
+      fetch:
+        src: "{{ backup_path }}/backup.tar.bz2"
+        dest: "host_backups/"

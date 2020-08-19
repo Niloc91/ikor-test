@@ -1,0 +1,4 @@
+json_terraform_output: "{{ lookup('file', '../terraform/output/outputs.json') }}"
+graylog_server_ip: "{{ json_terraform_output.graylog_ip.value.server }}"
+docker_reg_server_ip: "{{ json_terraform_output.docker_reg_ip.value.server }}"
+gitlab_server_ip: "{{json_terraform_output.gitlab_ip.value.server}}"

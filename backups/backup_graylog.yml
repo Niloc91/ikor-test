@@ -2,11 +2,12 @@
 - hosts: graylog
   remote_user: root
   vars:
+    ansible_network_os: linux
     ansible_python_interpreter: /usr/bin/python3
     volume_name: graylog_journal
     backup_path: /opt/app/backup
-    json_terraform_output: "{{ lookup('file', '../terraform/output/outputs.json') }}"
-    graylog_server_ip: "{{ json_terraform_output.graylog_ip.value.server }}"
+    #ansible_connection: network_cli
+  vars_files: vars.yml
   tasks:
   - name: backup_graylog
     docker_container:
@@ -16,13 +17,19 @@
       volumes:
         - "{{ volume_name }}:/volume"
         - "{{ backup_path }}:/backup"
-  - name: backup zu Lokal kopieren
-    fetch:
+
+  - name: kopieren zu sftp-Server
+    net_put:
       src: "{{ backup_path }}/{{volume_name}}.tar.bz2"
-      dest: "host_backups/"
-  - name: backup_mongo
-    shell: "cd /opt/app/ && docker-compose exec -T mongodb mongodump --archive --gzip > {{backup_path}}/dump.gz"
-  - name: backup zu Lokal kopieren
-    fetch:
-      src: "{{ backup_path }}/dump.gz"
-      dest: "host_backups/"
+      dest: stfp_server:/home/host_backups/
+      protocol: sftp
+#  - name: backup zu Lokal kopieren
+#    fetch:
+#      src: "{{ backup_path }}/{{volume_name}}.tar.bz2"
+#      dest: "host_backups/"
+#  - name: backup_mongo
+#    shell: "cd /opt/app/ && docker-compose exec -T mongodb mongodump --archive --gzip > {{backup_path}}/dump.gz"
+#  - name: backup zu Lokal kopieren
+#    fetch:
+#      src: "{{ backup_path }}/dump.gz"
+#      dest: "host_backups/"

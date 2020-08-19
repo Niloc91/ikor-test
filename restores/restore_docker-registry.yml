@@ -1,0 +1,14 @@
+# https://blog.nicco.io/2019/08/15/backup-mongodb-inside-of-docker-the-right-way/
+#https://medium.com/@loomchild/backup-restore-docker-named-volumes-350397b8e362
+- hosts: docker-registry
+  remote_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    backup_path: /opt/app/backup
+    json_terraform_output: "{{ lookup('file', '../terraform/output/outputs.json') }}"
+  vars_files: vars.yml
+  tasks:
+  - name: unarchive
+    unarchive:
+      src: "../backups/host_backups/{{ inventory_hostname }}{{ backup_path }}/backup.tar.bz2"
+      dest: "/opt/docker-volume"

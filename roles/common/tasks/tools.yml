@@ -1,0 +1,5 @@
+
+- name: wormhole installieren
+  apt:
+    name: wormhole
+    state: present

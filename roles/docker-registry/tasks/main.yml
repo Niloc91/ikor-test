@@ -1,0 +1,30 @@
+---
+# tasks file for docker-registry/
+
+- name: Nginx conf Datei kopieren
+  copy:
+    src: nginx_proxy.conf
+    dest: /opt/app/nginx_proxy.conf
+    owner: root
+    group: root
+    mode: '0744'
+- name: docker-compose Datei kopieren
+  copy:
+    src: docker-compose.yml
+    dest: /opt/app/docker-compose.yml
+    owner: root
+    group: root
+    mode: '0744'
+- name: Create and start services
+  docker_compose:
+    project_src: /opt/app
+  register: output
+- name: registry_trust_chain.pem Datei kopieren
+  copy:
+    src: certs
+    dest: /opt/app
+    owner: root
+    group: root
+    mode: '0600'
+- debug:
+    var: output

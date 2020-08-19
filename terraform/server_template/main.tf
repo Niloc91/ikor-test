@@ -20,7 +20,7 @@ resource "hcloud_server_network" "default" {
 resource "hcloud_volume" "default" {
   location = "nbg1"
   name     = "${var.names}-volume"
-  size     = 20
+  size     = var.volume_size
   format   = "ext4"
 }
 

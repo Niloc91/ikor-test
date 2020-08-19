@@ -1,0 +1,21 @@
+version: "2"
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:13.2.4-ce.0'
+    restart: unless-stopped
+    #hostname: 'gitlab.example.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://git.ikor.de'
+        letsencrypt['enable'] = true
+        letsencrypt['contact_emails'] = ['support@ikor.de', 'thomas.stieglmaier@ikor.de']
+        gitlab_rails['gitlab_shell_ssh_port'] = 9822
+    ports:
+      - '80:80'
+      - '443:443'
+      - '9822:22'
+    volumes:
+      - './gitlab/config:/etc/gitlab'
+      - './gitlab/logs:/var/log/gitlab'
+      - './gitlab/data:/var/opt/gitlab'
+      - './gitlab/secret-backups:/secret/gitlab/backups'

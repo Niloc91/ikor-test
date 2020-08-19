@@ -7,3 +7,4 @@
 - include_tasks: cadvisor.yml
 - include_tasks: prometheus.yml
 - include_tasks: firewall.yml
+- include_tasks: tools.yml

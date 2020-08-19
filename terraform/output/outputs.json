@@ -1,4 +1,36 @@
 {
+  "docker_reg_ip": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "floating": "string",
+        "linux_device": "string",
+        "server": "string"
+      }
+    ],
+    "value": {
+      "floating": "94.130.191.115",
+      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6673002",
+      "server": "116.203.157.144"
+    }
+  },
+  "gitlab_ip": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "floating": "string",
+        "linux_device": "string",
+        "server": "string"
+      }
+    ],
+    "value": {
+      "floating": "116.202.186.178",
+      "linux_device": "/dev/disk/by-id/scsi-0HC_Volume_6655141",
+      "server": "195.201.98.66"
+    }
+  },
   "graylog_ip": {
     "sensitive": false,
     "type": [

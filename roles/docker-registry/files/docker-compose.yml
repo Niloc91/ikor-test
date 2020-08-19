@@ -1,0 +1,94 @@
+version: "2"
+services:
+  docker-registry:
+    image: registry:2.7.1
+    restart: unless-stopped
+    volumes:
+      - /opt/docker-volume/data:/data:z
+      - ./certs:/opt/certs:z
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /opt/certs/registry_trust_chain.pem
+      REGISTRY_AUTH_TOKEN_REALM: https://sso.ikor.de/auth/realms/IKOR/protocol/docker-v2/auth
+      REGISTRY_AUTH_TOKEN_SERVICE: docker-registry
+      REGISTRY_AUTH_TOKEN_ISSUER: https://sso.ikor.de/auth/realms/IKOR
+      VIRTUAL_HOST: docker.ikor.de
+      VIRTUAL_PORT: 5000
+      LETSENCRYPT_HOST: docker.ikor.de
+      LETSENCRPT_EMAIL: support@ikor.de
+      #LETSENCRYPT_TEST: "true"
+    networks:
+      - webproxy
+
+
+  docker-registry-ui:
+    image: klausmeyer/docker-registry-browser
+    restart: unless-stopped
+    environment:
+      DOCKER_REGISTRY_URL: https://docker.ikor.de
+      NO_SSL_VERIFICATION: "true"
+      TOKEN_AUTH_USER: ansible@ikor.de
+      TOKEN_AUTH_PASSWORD: QvWCCWWos6evowx%tBev#W4XHcZwu5Q87dckkRX3!
+      PUBLIC_REGISTRY_URL: https://docker.ikor.de
+    networks:
+      - authproxy
+
+  oauth-proxy:
+    image: bitnami/oauth2-proxy:6.0.0
+    restart: unless-stopped
+    environment:
+      OAUTH2_PROXY_PROVIDER: oidc
+      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: keycloak
+      OAUTH2_PROXY_CLIENT_ID: docker-registry-ui
+      OAUTH2_PROXY_CLIENT_SECRET: cb6262c1-1852-4d65-bc4d-71297b62d894
+      OAUTH2_PROXY_REDIRECT_URL: https://ui.docker.ikor.de/oauth2/callback
+      OAUTH2_PROXY_OIDC_ISSUER_URL: https://sso.ikor.de/auth/realms/IKOR
+      OAUTH2_PROXY_COOKIE_SECURE: "true"
+      OAUTH2_PROXY_EMAIL_DOMAINS: ikor.de
+      OAUTH2_PROXY_COOKIE_SECRET: 12345678testtest
+      # OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "true"
+      # OAUTH2_PROXY_PASS_HOST_HEADER: "true"
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_REAL_CLIENT_IP_HEADER:
+      VIRTUAL_HOST: ui.docker.ikor.de
+      VIRTUAL_PORT: 4180
+      LETSENCRYPT_HOST: ui.docker.ikor.de
+      LETSENCRPT_EMAIL: support@ikor.de
+    command: ["--upstream=http://docker-registry-ui:8080", "--http-address=0.0.0.0:4180"]
+    networks:
+      - authproxy
+      - webproxy
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: 'true'
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/data/certs:/etc/nginx/certs:ro
+      - ./nginx/data/conf.d:/etc/nginx/conf.d
+      - ./nginx_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+      - ./nginx/data/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/data/html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - webproxy
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+      - ./nginx/data/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/data/certs:/etc/nginx/certs:rw
+      - ./nginx/data/html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx-proxy
+    networks:
+      - webproxy
+
+networks:
+  webproxy:
+  authproxy:
