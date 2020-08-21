@@ -14,7 +14,6 @@ module "graylog_server" {
   volume_size       = 20
 }
 
-
 #116.202.177.158
 module "docker_registry_server" {
   names             = "docker-registry"
